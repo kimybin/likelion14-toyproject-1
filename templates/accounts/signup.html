@@ -1,0 +1,42 @@
+<!-- 회원가입 페이지는 아직 안나왔지만 기능 확인을 위해 임시로 작성 -->
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>작심삼인</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="signup-container">
+    <h1 class="signup-title">회원가입</h1>
+
+    <form method="POST" action="{% url 'signup' %}">
+            {% csrf_token %}
+
+            {% if error %}
+            <p class="error-message">{{ error }}</p>
+            {% endif %}
+
+            <div class="signup-form">
+                <label>아이디</label>
+                <input type="text" name="username" placeholder="아이디를 입력해주세요">
+
+                <label>비밀번호</label>
+                <input type="password" name="password" placeholder="비밀번호를 입력해주세요">
+
+                <label>닉네임</label>
+                <input type="text" name="nickname" placeholder="닉네임을 입력해주세요">
+
+                <button type="submit" class="btn-signup">가입하기</button>
+            </div>
+        </form>
+
+        <div class="login-link">
+            이미 계정이 있어요 <a href="{% url 'login' %}">로그인</a>
+        </div>
+</div>
+
+</body>

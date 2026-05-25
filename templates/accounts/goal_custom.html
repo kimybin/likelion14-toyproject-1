@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>작심삼인</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="goal-custom-container">
+    <a href="{% url 'goal' %}" class="btn-back">&lt;</a>
+
+    <h1 class="goal-custom-title">
+        나에게 맞는 <span class="highlight">목표</span>를<br>
+        <span class="highlight">자유롭게 설정</span>할 수 있어요 🚩
+    </h1>
+    <p class="goal-custom-subtitle">
+        내가 이루고 싶은 목표를<br>
+        직접입력 해주세요!
+    </p>
+
+    <input
+        type="text"
+        id="custom-goal-input"
+        class="goal-custom-input"
+        placeholder="3일간 도전 할 목표를 입력해주세요."
+    >
+
+    <button type="button" class="btn-confirm" id="confirm-btn">확인</button>
+</div>
+
+<form id="goal-custom-form" method="POST" action="{% url 'goal_custom' %}">
+    {% csrf_token %}
+    <input type="hidden" name="goal" id="custom-goal-value">
+</form>
+
+<script>
+document.getElementById('confirm-btn').addEventListener('click', function() {
+    const goal = document.getElementById('custom-goal-input').value;
+    if (goal.trim() === '') {
+        alert('목표를 입력해주세요.');
+        return;
+    }
+    document.getElementById('custom-goal-value').value = goal;
+    document.getElementById('goal-custom-form').submit();
+});
+</script>
+</body>
