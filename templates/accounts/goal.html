@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>작심삼인</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="goal-popular">
+        <span>인기 목표</span>
+        <a href="{% url 'goal_custom' %}" class="btn-custom">직접 입력하기 &gt;</a>
+    </div>
+
+    <div class="goal-container">
+    <h1 class="goal-title">
+        가장 많이 도전하는<br>
+        <span class="highlight">목표 주제</span>를 가져왔어요
+    </h1>
+    <p class="goal-subtitle">
+        어떤 목표를 세울지 고민된다면<br>
+        인기 주제를 확인해보세요.
+    </p>
+
+    <!-- 인기 목표 목록 나열  -->
+    <!-- 아이콘 이미지를 images/ 폴더에 넣어서 작업하실 것 같아서 일단 DB에다 경로를 그렇게 설정해 두고 파일 형식은 .svg로 설정해두었어요
+    달라지면 추후 변경하겠습니다!  -->
+    <div class="goal-list">
+        {% for goal in popular_goals %}
+        <button type="button" class="goal-item" data-goal="{{ goal.title }}">
+            <img src="{% static goal.icon %}" alt="{{ goal.title }}" class="goal-icon">
+            <span class="goal-title">{{ goal.title }}</span>
+            <span class="goal-arrow">›</span>
+        </button>
+        {% endfor %}
+    </div>
+</div>
+
+<form id="goal-form" method="POST" action="{% url 'goal' %}">
+    {% csrf_token %}
+    <input type="hidden" name="goal" id="selected-goal">
+</form>
+
+<script>
+document.querySelectorAll('.goal-item').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+        document.getElementById('selected-goal').value = this.dataset.goal;
+        document.getElementById('goal-form').submit();
+    });
+});
+</script>
+</body>
