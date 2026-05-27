@@ -1,0 +1,59 @@
+.bottom-navbar {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 430px;
+    height: 65px;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-top: 1px solid #f1f5f9;
+    z-index: 999;
+    padding-bottom: env(safe-area-inset-bottom);
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: #D1D3D8;
+    font-size: 11px;
+    font-weight: 500;
+    width: 60px;
+    height: 100%;
+}
+
+
+.nav-icon {
+    width: 24px !important;
+    height: 24px !important;
+    margin-bottom: 4px;
+    object-fit: contain;
+    filter: invert(93%) sepia(5%) saturate(106%) hue-rotate(182deg) brightness(91%) contrast(87%) !important;
+    opacity: 1 !important;
+}
+
+/* 활성화 상태 (현재 켜진 메뉴: 홈) */
+.nav-item.active {
+    color: #28DE80;
+}
+
+/* 활성화 상태 아이콘 초록색(#28DE80) */
+.nav-item.active .nav-icon {
+    filter: invert(71%) sepia(43%) saturate(718%) hue-rotate(94deg) brightness(98%) contrast(91%) !important;
+}
+
+.nav-label {
+    font-family: 'Noto Sans KR', sans-serif;
+    white-space: nowrap;
+}
+
+.nav-item img[alt="완주 랭킹"] {
+    filter: none !important;
+    opacity: 1 !important;
+}
