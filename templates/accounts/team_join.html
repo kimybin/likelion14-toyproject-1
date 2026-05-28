@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>팀 참여하기</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+    <div class="team-join-container">
+        <a href="{% url 'login_home' %}" class="btn-back">&lt;</a>
+        <h1 class="team-join-title">
+            팀 <span class="highlight">초대 코드를 입력</span>하고<br>
+            함께 도전을 시작하세요.
+        </h1>
+        <p class="team-join-subtitle">
+            초대 코드를 통해 기존 팀에 참여할 수 있어요.<br>
+            코드가 없다면 팀 생성 후 친구를 초대해보세요.
+        </p>
+
+        <input
+            type="text"
+            id="invite-code-input"
+            class="invite-code-input"
+            placeholder="초대코드를 입력해주세요."
+        >
+
+        {% if error %}
+        <p class="error-message">{{ error }}</p>
+        {% endif %}
+
+        <button type="button" class="btn-next" id="next-btn" style="display:none;">
+            다음 단계 넘어가기
+        </button>
+    </div>
+
+    <form id="join-form" method="POST" action="{% url 'team_join' %}">
+        {% csrf_token %}
+        <input type="hidden" name="invite_code" id="selected-code">
+    </form>
+
+    <script>
+        const input = document.getElementById('invite-code-input');
+        const btn = document.getElementById('next-btn');
+
+        input.addEventListener('input', function() {
+            btn.style.display = this.value.trim() ? 'block' : 'none';
+        });
+
+        btn.addEventListener('click', function() {
+            document.getElementById('selected-code').value = input.value;
+            document.getElementById('join-form').submit();
+        });
+    </script>
+</body>
+</html>
