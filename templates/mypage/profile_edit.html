@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">e>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+<div class="profile-edit-container">
+    <a href="{% url 'mypage' %}" class="btn-back">&lt;</a>
+    <h1 class="profile-edit-title">프로필 편집</h1>
+
+    <form method="POST" action="{% url 'profile_edit' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <!-- 프로필 이미지 -->
+        <div class="profile-image-section">
+            {% if user.profile_image %}
+                <img src="{{ user.profile_image.url }}" alt="프로필 이미지" class="profile-img">
+            {% else %}
+                <img src="{% static 'images/profile_img.png' %}" alt="기본 프로필" class="profile-img">
+            {% endif %}
+            <label for="profile_image" class="btn-image-edit">프로필 사진 수정</label>
+            <input type="file" id="profile_image" name="profile_image" accept="image/*" style="display:none;">
+        </div>
+
+        <!-- 닉네임 -->
+        <div class="edit-item">
+            <label>닉네임</label>
+            <input type="text" name="nickname" value="{{ user.nickname }}">
+        </div>
+
+        <!-- 아이디 (수정 불가) -->
+        <div class="edit-item">
+            <label>아이디</label>
+            <span class="readonly">{{ user.username }}</span>
+        </div>
+
+        <!-- 비밀번호 변경 -->
+        <div class="edit-item">
+            <label>비밀번호 변경</label>
+            <input type="password" name="password" placeholder="새 비밀번호 입력">
+        </div>
+
+        <button type="submit" class="btn-save">저장</button>
+    </form>
+
+    <!-- 회원 탈퇴 / 로그아웃 -->
+    <div class="account-actions">
+        <form method="POST" action="{% url 'delete_account' %}">
+          {% csrf_token %}
+          <button type="submit" class="btn-delete">회원 탈퇴하기</button>
+        </form>
+        <span>|</span>
+        <a href="{% url 'logout' %}" class="btn-logout">로그아웃</a>
+    </div>
+</div>
+
+</body>
+</html>

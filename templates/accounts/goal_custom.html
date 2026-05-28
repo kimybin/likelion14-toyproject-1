@@ -26,8 +26,10 @@
         class="goal-custom-input"
         placeholder="3일간 도전 할 목표를 입력해주세요."
     >
-
-    <button type="button" class="btn-confirm" id="confirm-btn">확인</button>
+    <!-- 입력 후에만 보이는 버튼 -->
+    <button type="button" class="btn-confirm" id="confirm-btn" style="display:none;">
+      다음 단계 넘어가기
+    </button>
 </div>
 
 <form id="goal-custom-form" method="POST" action="{% url 'goal_custom' %}">
@@ -36,8 +38,17 @@
 </form>
 
 <script>
-document.getElementById('confirm-btn').addEventListener('click', function() {
-    const goal = document.getElementById('custom-goal-input').value;
+const input = document.getElementById('custom-goal-input');
+const btn = document.getElementById('confirm-btn');
+
+// 입력값 있을 때만 버튼 표시
+input.addEventListener('input', function() {
+    btn.style.display = this.value.trim() ? 'block' : 'none';
+});
+
+// 버튼 클릭 시 폼 전송
+btn.addEventListener('click', function() {
+    const goal = input.value;
     if (goal.trim() === '') {
         alert('목표를 입력해주세요.');
         return;
@@ -47,3 +58,4 @@ document.getElementById('confirm-btn').addEventListener('click', function() {
 });
 </script>
 </body>
+
