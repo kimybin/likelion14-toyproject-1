@@ -1,88 +1,97 @@
 {% extends 'base.html' %}
 {% load static %}
+
 {% block content %}
+<div class="relay-home-root">
+    <div class="home-container">
+        
+        <header class="home-header">
+            <div class="header-date">
+                <img src="{% static 'images/ic_calendar.svg' %}" alt="달력" class="header-icon">
+                <span>{% now "Y년 m월 d일" %}</span>
+            </div>
+            <div class="header-alarm">
+                <img src="{% static 'images/ic_alarm.svg' %}" alt="알림" class="header-icon">
+            </div>
+        </header>
 
-<!-- 날짜 헤더 -->
-<div class="date-header">
-    <span class="date">{{ today|date:"Y년 m월 d일" }}</span>
-</div>
+        <section class="user-profile-card">
+            <div class="profile-meta">
+                <div class="profile-avatar">
+                    <img src="{% static 'images/ic_default_avatar.svg' %}" alt="프로필">
+                </div>
+                <div class="profile-info-wrap">
+                    <span class="subtitle">첫번째 주자</span>
+                    <div class="nickname-row">
+                        <h2 class="user-nickname">{{ user.nickname|default:user.username }} 님</h2>
+                        <div class="profile-badges">
+                            <span class="badge status-badge">
+                                <div class="badge-wrap">
+                                    <img src="{% static 'images/dot.svg' %}">
+                                </div> 바톤 터치 완료
+                            </span>
+                            <span class="badge team-badge">
+                                <div class="badge-wrap">
+                                    <img src="{% static 'images/dot.svg' %}">
+                                </div> 끝까지 가자 팀 소속
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="goal-banner">
+                <span class="goal-title">현재 도전 중인 목표!</span>
+                <p class="goal-text">하루에 책 30분씩 읽기</p>
+            </div>
+        </section>
 
-<!-- 프로필 카드 -->
-<div class="profile-card">
-    <div class="profile-top">
-        <div class="profile-image">
-            {% if user.profile_image %}
-                <img src="{{ user.profile_image.url }}" alt="프로필 이미지">
-            {% else %}
-                <img src="{% static 'images/profile_img.png' %}" alt="기본 프로필">
-            {% endif %}
-        </div>
+        <section class="timer-section">
+            <div class="timer-header-wrap">
+                <h3 class="section-title">다음 바톤터치까지</h3>
+                <div class="timer-tooltip">
+                    시간이 얼마 남지 않았어요<br>필요시 예비주자로 교체해주세요!
+                </div>
+            </div>
+            
+            <div class="timer-display">
+                <div class="time-box-container">
+                    <div class="time-block">00</div>
+                    <span class="time-label">DAYS</span>
+                </div>
+                <span class="timer-divider"> </span>
+                <div class="time-box-container">
+                    <div class="time-block">02</div>
+                    <span class="time-label">HOURS</span>
+                </div>
+                <span class="timer-divider">:</span>
+                <div class="time-box-container">
+                    <div class="time-block">18</div>
+                    <span class="time-label">MINUTES</span>
+                </div>
+                <span class="timer-divider">:</span>
+                <div class="time-box-container">
+                    <div class="time-block">43</div>
+                    <span class="time-label">SECONDS</span>
+                </div>
+            </div>
+        </section>
 
-        <div class="profile-info">
-            <span class="runner-order">{{ current_user_slot.order }}번째 주자</span>
-            <h2 class="nickname">{{ user.nickname }} 님</h2>
-        </div>
-        <div class="profile-tags">
-            <span class="tag">{{ current_user_slot.get_status_display }}</span>
-            <span class="tag">{{ team.name }} 팀 소속</span>
-        </div>
+        <section class="relay-status-section">
+            <div class="relay-header">
+                <h3 class="relay-title">릴레이 현황</h3>
+                <div class="chat-icon-wrap">
+                    <img src="{% static 'images/ic_chat.svg' %}" alt="채팅">
+                </div>
+            </div>
+            <p class="relay-desc">편하게 우리팀이 어디까지 달렸는지 확인해요</p>
+            <p class="relay-desc-light">두 번째 주자 김민솔님 달리는 중 ⦁⦁⦁</p>
+
+            <div class="relay-track-container">
+                <img src="{% static 'images/img_track.svg' %}" alt="릴레이 트랙" class="track-img">
+            </div>
+        </section>
+
     </div>
-    <div class="goal-section">
-        <p class="goal-label">현재 도전 중인 목표!</p>
-        <h3 class="goal-title">{{ relay.goal }}</h3>
-    </div>
 </div>
-
-<!-- 카운트다운 -->
-<div class="countdown-section">
-    <h3 class="countdown-title">다음 바톤터치까지</h3>
-    <div class="countdown-timer">
-        <div class="time-block">
-            <span class="time-number" id="days">00</span> <!-- JS로 채울 부분  -->
-            <span class="time-label">DAYS</span>
-        </div>
-        <span class="colon"></span>
-        <div class="time-block">
-            <span class="time-number" id="hours">00</span>  <!-- JS로 채울 부분  -->
-            <span class="time-label">HOURS</span>
-        </div>
-        <span class="colon">:</span>
-        <div class="time-block">
-            <span class="time-number" id="minutes">00</span>  <!-- JS로 채울 부분  -->
-            <span class="time-label">MINUTES</span>
-        </div>
-        <span class="colon">:</span>
-        <div class="time-block">
-            <span class="time-number" id="seconds">00</span>  <!-- JS로 채울 부분  -->
-            <span class="time-label">SECONDS</span>
-        </div>
-    </div>
-    <!-- JS가 카운트다운 계산할 수 있도록 end_date 넘겨주기 -->
-    <span id="end-date" data-end="{{ current_slot.end_date }}"></span>
-</div>
-
-<!-- 릴레이 현황 -->
-<div class="relay-status">
-    <h3 class="relay-title">릴레이 현황</h3>
-
-    <p class="relay-subtitle">
-        {{ current_slot.order }}번째 주자 {{ current_slot.runner.nickname }}님 달리는 중 ...
-    </p>
-
-    <div class="relay-order">
-        <span>↓≡ 이어달리기 순서</span>
-        {% for slot in slots %}
-        <div class="order-item">
-            <span class="order-label">
-                {% if slot.order == 1 %}첫
-                {% elif slot.order == 2 %}두
-                {% elif slot.order == 3 %}셋
-                {% endif %} 번째 주자
-            </span>
-            <span class="order-name">{{ slot.runner.nickname }} 님</span>
-        </div>
-        {% endfor %}
-    </div>
-</div>
-
-{% endblock %}/html>
+{% endblock %}
