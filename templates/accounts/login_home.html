@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>작심삼인</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+<div class="login-home-container">
+    <h1 class="login-home-title">
+        혼자면 <span class="highlight">작심삼일,</span><br>
+        함께라면 <span class="highlight">끝까지</span> 🚩
+    </h1>
+
+    <a href="{% url 'login' %}" class="btn-login">로그인</a>
+
+    <div class="login-links">
+        <a href="#">아이디 찾기</a>
+        <span>|</span>
+        <a href="#">비밀번호 찾기</a>
+    </div>
+
+    <!-- 소셜 로그인 연결은 보류 -->
+</div>
+
+</body>
+</html>

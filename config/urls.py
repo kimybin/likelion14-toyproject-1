@@ -15,11 +15,18 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-from home import views
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from django.conf.urls.static import static
+from django.conf import settings
+
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path('', views.home, name='home'),
-]
+    path('', include('accounts.urls')),  # 루트를 accounts로 변경
+    path('home/', include('home.urls')),
+    path('rank/', include('rank.urls')),
+    path('relay/', include('relay.urls')),
+    path('mypage/', include('mypage.urls')),
+    path('accounts/', include('accounts.urls')),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>작심삼인</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="login-container">
+    <h1 class="login-title">
+        혼자면 <span class="highlight">작심삼일,</span><br>
+        함께라면 <span class="highlight">끝까지</span> 🚩
+    </h1>
+
+    <!-- 로그인 입력 칸  -->
+    <form method="POST" action="{% url 'login' %}">
+            {% csrf_token %}
+            <div class="login-form">
+                <label>아이디</label>
+                <input type="text" name="username" placeholder="아이디를 입력해주세요">
+
+                <label>비밀번호</label>
+                <input type="password" name="password" placeholder="비밀번호를 입력해주세요">
+
+                {% if error %}
+                <p class="error-message">{{ error }}</p>
+                {% endif %}
+
+                <button type="submit" class="btn-login">로그인</button>
+            </div>
+        </form>
+
+        <div class="login-links">
+            <a href="#">아이디 찾기</a>
+            <span>|</span>
+            <a href="#">비밀번호 찾기</a>
+        </div>
+
+        <div class="signup-link">
+            작심삼인이 처음이에요 <a href="{% url 'signup' %}">가입하기</a>
+        </div>
+    </div>
+</body>
+</html>

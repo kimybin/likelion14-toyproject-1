@@ -1,59 +1,173 @@
-.bottom-navbar {
-    position: fixed;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
+/* 1. 전체 화면 가두기 및 모바일 앱 레이아웃 */
+html, body {
+    margin: 0;
+    padding: 0;
     width: 100%;
-    max-width: 430px;
-    height: 65px;
-    background-color: #ffffff;
+    height: 100%;
+    background-color: #F1F5F9; /* PC 브라우저용 배경색 */
+    font-family: 'Pretendard', sans-serif;
     display: flex;
-    justify-content: space-around;
-    align-items: center;
-    border-top: 1px solid #f1f5f9;
-    z-index: 999;
-    padding-bottom: env(safe-area-inset-bottom);
+    justify-content: center;
 }
 
-.nav-item {
+/* base.html 구조 내 앱 화면을 가두기 */
+body > .home-container,
+body > div:not(.bottom-nav) {
+    width: 100%;
+    max-width: 430px; /* 피그마 아이폰 규격 강제 고정 */
+    height: 100vh;
+    background-color: #F8FAFC; /* 앱 내부 배경색 */
+    padding: 16px 0 100px 0; /* 하단 네비바 공간 확보 */
+    box-sizing: border-box;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
+}
+
+/* ==========================================================
+   🏃‍♂️ 홈 화면 (Home) 피그마 디자인 파트
+   ========================================================== */
+
+/* 1. 상단 헤더 */
+.home-header {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    color: #D1D3D8;
-    font-size: 11px;
-    font-weight: 500;
-    width: 60px;
-    height: 100%;
+    margin-bottom: 14px;
+    padding: 8px 16px 0 16px;
+}
+.header-date {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #332A26;
+}
+.header-icon { width: 22px; height: 22px; }
+.header-alarm {flex:right; margin-right: 8px; margin-top: 8px;}
+
+/* 2. 유저 프로필 카드 */
+.user-profile-card {
+    background-color: #FFFFFF;
+    border-radius: 20px;
+    padding: 16px;
+    margin: 0 16px 14px 16px;
+}
+.profile-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+.profile-avatar img { width: 44px; height: 44px; border-radius: 50%; }
+.profile-info-wrap { display: flex; flex-direction: column; flex: 1; }
+.nickname-row {
+    display: flex;
+    align-items: center !important;
+    gap: 8px;
+    justify-content: space-between;
+}
+.subtitle { font-size: 11px; color: #7b7b7b; font-weight: 400; }
+.user-nickname { font-size: 17px; font-weight: 500; color: #332A26; margin: 0; }
+
+/* 뱃지 정렬 및 디자이너 컬러 지정 */
+.profile-badges { display: flex; gap: 8px; }
+.badge { font-size: 9px; font-weight: 500; padding: 3px 8px; border-radius: 20px; white-space: nowrap;
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 4px;}
+.status-badge { background-color: #A5E5C4; color: #332A26; }
+.team-badge { background-color: #A5E5C4; color: #332A26; }
+.badge-wrap{display: flex; align-items: center; justify-content: center}
+.badge-wrap img {
+    display: block;
+    width: 5px;  /* 피그마 시안 점 크기에 맞게 필요시 조절하세요 */
+    height: 5px;
 }
 
+/* 목표 초록색 배너 */
+.goal-banner { background-color: #28DE80; border-radius: 12px; padding: 12px 16px; }
+.goal-title { font-size: 10px; color: rgba(255, 255, 255, 0.9); font-weight: 400; display: block; text-align: left; }
+.goal-text { font-size: 16px; font-weight: 500; color: #FFFFFF; margin: 0; text-align: center; }
 
-.nav-icon {
-    width: 24px !important;
-    height: 24px !important;
-    margin-bottom: 4px;
-    object-fit: contain;
-    filter: invert(93%) sepia(5%) saturate(106%) hue-rotate(182deg) brightness(91%) contrast(87%) !important;
-    opacity: 1 !important;
+/* 3. 타이머 섹션 */
+.timer-section {
+    background-color: #FFFFFF;
+    border-radius: 0;
+    padding: 14px 16px;
+    margin-bottom: 8px;
+    width: 100%;
+    box-sizing: border-box;
+}
+.timer-header-wrap { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.timer-section .section-title { font-size: 17px; font-weight: 600; color: #332A26; margin: 0; }
+
+/* 피그마 각진 툴팁 */
+.timer-tooltip {
+    background-color: #FFF8D0; color: #7B7B7B; font-size: 10px;
+    padding: 4px 40px; border-radius: 4px; text-align: center; line-height: 1.2; position: relative; max-width: 210px;
+}
+.timer-tooltip::after {
+    content: ''; position: absolute; bottom: -7px; right: 14px;
+    border-width: 7px 5px 0; border-style: solid; border-color: #FFF8D0 transparent; display: block;
 }
 
-/* 활성화 상태 (현재 켜진 메뉴: 홈) */
-.nav-item.active {
-    color: #28DE80;
+/* 주황색 시계 블록 가로 정렬 */
+.timer-display { display: flex; justify-content: center; align-items: center; gap: 12px; }
+.time-box-container { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.time-block {
+    background-color: #F06452; color: #FFFFFF; font-size: 30px; font-weight: 800;
+    width: 60px; height: 52px; border-radius: 12px; display: flex; justify-content: center; align-items: center;
+}
+.time-label { font-size: 9px; color: #353535; font-weight: 400; margin-top: 6px;}
+.timer-divider { font-size: 26px; font-weight: 500; color: #B6B6B6; margin-bottom: 20px; }
+
+/* 4. 릴레이 현황 섹션 */
+.relay-status-section { background-color: #FFFFFF; border-radius: 0; padding: 20px 16px; width: 100%; box-sizing: border-box; flex: 1; }
+.relay-header { display: flex; justify-content: space-between; align-items: center;}
+.chat-icon-wrap {float: right;}
+.relay-title { font-size: 17px; font-weight: 600; color: #332A26; margin: 0; }
+.relay-desc { font-size: 17px; font-weight: 400; color: #00A960; margin: 0; }
+.relay-desc-light { font-size: 10px; color: #7B7B7B; margin: 0 0 20px 0; }
+.relay-track-container { width: 100%; text-align: center; }
+.track-img { width: 100%; max-width: 390px; height: auto; }
+
+/* ==========================================================
+   하단 고정 네비게이션 바 디자인
+   ========================================================== */
+.bottom-nav {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 100% !important;
+    max-width: 430px !important;
+    height: 65px !important;
+    background-color: #FFFFFF !important;
+    display: flex !important;
+    justify-content: space-around !important;
+    align-items: center !important;
+    border-top: 1px solid #E2E8F0 !important;
+    box-sizing: border-box !important;
+    z-index: 10000 !important;
+    padding: 0 10px;
 }
 
-/* 활성화 상태 아이콘 초록색(#28DE80) */
-.nav-item.active .nav-icon {
-    filter: invert(71%) sepia(43%) saturate(718%) hue-rotate(94deg) brightness(98%) contrast(91%) !important;
+.bottom-nav .nav-item {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-decoration: none !important;
+    color: #D1D3D8 !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    gap: 4px !important;
 }
 
-.nav-label {
-    font-family: 'Noto Sans KR', sans-serif;
-    white-space: nowrap;
-}
-
-.nav-item img[alt="완주 랭킹"] {
-    filter: none !important;
-    opacity: 1 !important;
+/* 현재 활성화된 메뉴 색상 초록색 포인트 변경 */
+.bottom-nav .nav-item:hover,
+.bottom-nav .nav-item.active {
+    color: #00A960 !important;
+    fill: currentColor !important;
 }
