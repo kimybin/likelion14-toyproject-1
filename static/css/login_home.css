@@ -1,0 +1,479 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #F1F5F9; /* PC 브라우저용 배경색 */
+    font-family: 'Pretendard', sans-serif;
+    display: flex;
+    justify-content: center;
+}
+
+/* 1. 전체 화면 가두기 상자 (로그인 홈, 로그인, 회원가입 모바일 핏 3종 통합) */
+.login-home-container,
+.login-container,
+.signup-container,
+.team-join-container,
+.goal-custom-container {
+    width: 100%;
+    max-width: 430px; /* 피그마 아이폰 규격 강제 고정 */
+    height: 100vh;
+    background-color: #F5F5F5; 
+    margin: 0 auto; 
+    padding: 24px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #E2E8F0;
+    border-radius: 40px; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+/* 2. 상단 삼선 메뉴 */
+.header-menu-icon {
+    position: absolute;
+    top: 32px;
+    left: 24px;
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    cursor: pointer;
+    z-index: 100;
+}
+
+/* 3. 상단 메인 감성 타이틀 문구 (여백 및 글꼴 조정) */
+.login-home-title {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.4;
+    color: #332A26; /* 피그마 지정 초콜릿 블랙 */
+    margin-top: 70px; /* 삼선 메뉴 아래로 내리기 */
+    margin-bottom: 0;
+    text-align: left;
+    letter-spacing: -0.5px;
+    position: relative;
+    z-index: 10;
+}
+
+/* 피그마 형광 초록색 하이라이트 포인트 컬러 */
+.login-home-title .highlight {
+    color: #28DE80 !important; 
+}
+
+/* 깃발 아이콘 */
+.title-flag {
+    width: 48px;
+    height: 48px;
+    position: relative;
+    vertical-align: middle;
+    margin-left: -4px;
+}
+
+/* 4. 가운데 그라데이션 배경*/
+.login-bg-gradient {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-60%);
+    right: 0px;
+    width: 300px;  
+    height: auto;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.8;
+}
+
+/* 5. 하단 컨텐츠 정렬 상자 */
+.login-home-content-wrap {
+    margin-top: auto; /* 맨 밑바닥으로 자동 밀어내기 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    z-index: 10; /* 그라데이션보다 위로 얹기 */
+}
+
+/* 6. 작심삼인 미니 스퀘어 앱 로고 */
+.login-home-logo {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 16px;
+    object-fit: contain;
+}
+
+/* 7. 쨍한 초록색 라운드 로그인 버튼 */
+.btn-login {
+    width: 100%;
+    height: 52px;
+    background-color: #28DE80 !important; /* 피그마 지정 메인 컬러 */
+    color: #FFFFFF !important;
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(40, 222, 128, 0.15);
+    transition: background 0.2s ease;
+    margin-bottom: 16px;
+    border-style: solid; border-color:#00A960;
+}
+
+/* 8. 아이디/비밀번호 찾기 링크 링크 텍스트 구역 */
+.login-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: #969696;
+    margin-bottom: 24px;
+    gap: 8px; /* 링크 사이 간격 */
+}
+.login-links a {
+    color: #969696;
+    text-decoration: none;
+    font-weight: 500;
+}
+.links-divider {
+    width: 1px;
+    height: 12px;
+    background-color: #E2E8F0;
+}
+
+/* 9. 또는 구분선 텍스트 구역 */
+.divider-text-wrap {
+    width: 100%;
+    position: relative;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.divider-text-wrap::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: #D9D9D9;
+    z-index: 1;
+}
+.divider-text {
+    background-color: #FFFFFF; /* 피그마 배경색과 일치시켜 선 가리기 */
+    padding: 0 10px;
+    color: #969696;
+    font-size: 11px;
+    position: relative;
+    z-index: 10;
+}
+
+/* 10. 소셜 로그인 아이콘 구역 */
+.social-login-links {
+    display: flex;
+    justify-content: center;
+    gap: 16px; /* 아이콘 사이 간격 */
+    width: 100%;
+}
+
+.social-item {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.social-item img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+}
+
+/* 1. 입력 폼 전체 가로 너비 확장 */
+.login-input-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 12px;
+}
+
+/* 2. 아이디, 비밀번호 묶음 세로 정렬 */
+.input-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 20px; /* 인풋창 사이의 여백 */
+    text-align: left;
+}
+
+/* 3. 인풋창 위에 붙는 라벨 (아이디, 비밀번호 텍스트) */
+.input-group label {
+    font-size: 14px;
+    font-weight: 700;
+    color: #000000;
+    margin-bottom: 8px;
+    letter-spacing: -0.3px;
+}
+
+/* 4. 피그마 순정 입력 창 스타일 */
+.input-group input {
+    width: 100%;
+    height: 48px;
+    background-color: #FFFFFF;
+    border: 1px solid #E2E8F0; /* 피그마 은은한 회색 선 */
+    border-radius: 8px;
+    padding: 0 16px;
+    font-size: 14px;
+    color: #332A26;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+}
+
+/* 인풋창 클릭(포커스)되었을 때 메인 초록색 테두리 포인트 효과 */
+.input-group input:focus {
+    outline: none;
+    border-color: #28DE80;
+    box-shadow: 0 0 0 3px rgba(40, 222, 128, 0.1);
+}
+
+/* 플레이스홀더(힌트 글씨) 색상 연하게 조절 */
+.input-group input::placeholder {
+    color: #CBD5E1;
+}
+
+/* 5. 로그인 에러 메시지 폰트 */
+.error-message {
+    color: #EF4444;
+    font-size: 12px;
+    font-weight: 500;
+    text-align: left;
+}
+
+/* 6. "작심삼인이 처음이에요 가입하기" 구역 정밀 보정 */
+.signup-prompt-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #999999;
+    margin-bottom: 24px;
+}
+
+/* 가입하기 링크에 메인 초록색 입히고 두껍게 */
+.btn-signup-link {
+    color: #28DE80 !important;
+    font-weight: 700;
+    text-decoration: none;
+}
+.btn-signup-link:hover {
+    text-decoration: underline;
+}
+
+/* 로그인 폼 내부에 있을 때의 로그인 버튼 상단 여백 조절 */
+.login-input-form .btn-login {
+    margin-top: 8px;
+    margin-bottom: 0;
+    border: none;
+    cursor: pointer;
+}
+
+/* 1. 뒤로가기 버튼 + 회원가입 타이틀 상단 헤더 배치 */
+.signup-header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-top: 12px;
+    margin-bottom: 24px;
+    position: relative;
+    z-index: 100;
+}
+
+/* 피그마 순정 에셋처럼 작동하는 좌측 화살표(<) 뒤로가기 버튼 */
+.btn-back {
+    width: 24px;
+    height: 24px;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="%23332A26" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"/></svg>') no-repeat center;
+    background-size: contain;
+    text-decoration: none;
+    display: block;
+}
+
+/* 회원가입 정중앙 타이틀 */
+.signup-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #332A26;
+    margin: 0 auto; /* 정중앙 정렬 치트키 */
+    transform: translateX(-12px); /* 뒤로가기 버튼 너비만큼 보정하여 완벽 중앙 배치 */
+}
+
+/* 2. 💡 [중요] 회원가입은 인풋창이 5개나 되므로 모바일 화면 밖으로 터지지 않게 스크롤바 부여 */
+.signup-content-scroll-wrap {
+    width: 100%;
+    height: calc(100% - 60px);
+    overflow-y: auto; /* 내용이 많아지면 내부에서 예쁘게 스크롤 */
+    padding-right: 4px;
+    z-index: 10;
+}
+
+/* 깔끔한 디자인을 위해 내부 스크롤바 숨기기 규칙 */
+.signup-content-scroll-wrap::-webkit-scrollbar {
+    width: 4px;
+}
+.signup-content-scroll-wrap::-webkit-scrollbar-thumb {
+    background-color: #E2E8F0;
+    border-radius: 2px;
+}
+
+/* 3. 회원가입 하기 하단 버튼 여백 조정 */
+.btn-signup-submit {
+    margin-top: 12px !important;
+    border: none;
+    cursor: pointer;
+}
+
+/* 1. 메인 타이틀 여백 조정 */
+.team-main-title {
+    margin-top: 40px !important;
+}
+
+/* 2. 상단 안내 서브타이틀 */
+.team-subtitle {
+    font-size: 14px;
+    font-weight: 400;
+    color: #A0AEC0;
+    text-align: left;
+    margin-top: 12px;
+    margin-bottom: 0;
+    letter-spacing: -0.3px;
+    z-index: 10;
+}
+
+/* 3. 하단 "이미 팀이 생성되었다면" 문구 정렬 */
+.team-click {
+    font-size: 13px;
+    color: #718096;
+    margin-top: 16px;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.team-container .login-home-content-wrap {
+    margin-top: 40px !important; /* 💡 auto 대신 타이틀과의 적당한 상단 여백만 부여! */
+    justify-content: center;
+}
+
+/* 팀 이름 입력창 자체 디자인 보정 (피그마처럼 더 라운드하고 둥글게) */
+.team-name-input {
+    width: 100%;
+    height: 56px !important; /* 피그마 규격에 맞춰 살짝 더 도톰하게 */
+    border: 1px solid #E2E8F0 !important;
+    border-radius: 16px !important; /* 💡 피그마 특유의 부드러운 라운드 핏 */
+    padding: 0 20px !important;
+    font-size: 15px !important;
+    background-color: #FFFFFF !important;
+    box-sizing: border-box;
+}
+
+/* 입력창 포커스 되었을 때 초록색 테두리 */
+.team-name-input:focus {
+    outline: none;
+    border-color: #28DE80 !important;
+}
+
+/* "다음 단계 넘어가기" 버튼 상단 여백 조정 */
+.btn-next {
+    margin-top: 16px !important;
+}
+
+/* 하단 가이드 문구 여백 조절 */
+.team-container .team-click {
+    margin-top: 32px !important;
+}
+
+/* 1. 상단 특수 헤더 배치 조율 */
+.goal-header {
+    justify-content: space-between;
+}
+.goal-header-title {
+    transform: translateX(16px) !important; /* 우측 링크 균형 맞추기 */
+}
+.btn-custom-link {
+    font-size: 13px;
+    color: #A0AEC0;
+    text-decoration: none;
+    font-weight: 600;
+    z-index: 100;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="%23A0AEC0" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>') no-repeat right center;
+    background-size: 12px;
+    padding-right: 14px;
+}
+
+/* 2. 리스트 상자 여백 및 터짐 방지 */
+.goal-list-wrap {
+    margin-top: 32px !important;
+    height: calc(100% - 220px) !important; /* 상단 타이틀 높이 제외하고 꽉 채우기 */
+}
+
+.goal-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px; /* 카드 사이 간격 */
+    width: 100%;
+}
+
+/* 3. 피그마 순정 하얀색 라운드 목표 아이템 버튼 */
+.goal-item {
+    width: 100%;
+    height: 56px;
+    background-color: #FFFFFF !important;
+    border: 1px solid #E2E8F0 !important;
+    border-radius: 16px !important;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+/* 마우스 올리거나 클릭했을 때 부드러운 반응 */
+.goal-item:hover {
+    border-color: #28DE80 !important;
+    background-color: #FDFDFD !important;
+}
+
+/* 내부 아이콘 이미지 배치 */
+.goal-icon-img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    margin-right: 12px;
+}
+
+/* 목표 글씨 스타일 */
+.goal-text {
+    font-size: 15px;
+    font-weight: 600;
+    color: #332A26;
+}
+
+.goal-arrow {
+    margin-left: auto; /* 우측 끝으로 밀어내기 */
+    width: 20px;
+    height: 20px;
+
+}
+
+.goal-custom-container .login-home-content-wrap,
+.team-join-container .login-home-content-wrap {
+    margin-top: 40px !important; /* 💡 auto(밑바닥 밀어내기)를 해제하고 타이틀 밑으로 바짝 끌어올리기! */
+    justify-content: center;
+}

@@ -3,44 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>작심삼인</title>
+    <title>작심삼인 - 로그인 입력</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/login_home.css' %}">
 </head>
 <body>
-    <div class="login-container">
-    <h1 class="login-title">
-        혼자면 <span class="highlight">작심삼일,</span><br>
-        함께라면 <span class="highlight">끝까지</span> 🚩
-    </h1>
+    <div class="login-home-container">
+        
+        <img src="{% static 'images/onboarding_bg.svg' %}" alt="배경" class="login-bg-gradient">
 
-    <!-- 로그인 입력 칸  -->
-    <form method="POST" action="{% url 'login' %}">
-            {% csrf_token %}
-            <div class="login-form">
-                <label>아이디</label>
-                <input type="text" name="username" placeholder="아이디를 입력해주세요">
+        <img src="{% static 'images/ic_menu.svg' %}" alt="메뉴" class="header-menu-icon" onerror="this.style.display='none'">
 
-                <label>비밀번호</label>
-                <input type="password" name="password" placeholder="비밀번호를 입력해주세요">
+        <h1 class="login-home-title">
+            혼자면 <span class="highlight">작심삼일,</span><br>
+            <span class="highlight">함께라면 </span>끝까지
+            <img src="{% static 'images/flag.svg' %}" alt="깃발" class="title-flag">
+        </h1>
+
+        <div class="login-home-content-wrap">
+            
+            <form method="POST" action="{% url 'login' %}" class="login-input-form">
+                {% csrf_token %}
+                
+                <div class="input-group">
+                    <label>아이디</label>
+                    <input type="text" name="username" placeholder="아이디를 입력해주세요" required>
+                </div>
+
+                <div class="input-group">
+                    <label>비밀번호</label>
+                    <input type="password" name="password" placeholder="비밀번호를 입력해주세요" required>
+                </div>
 
                 {% if error %}
                 <p class="error-message">{{ error }}</p>
                 {% endif %}
 
                 <button type="submit" class="btn-login">로그인</button>
+            </form>
+
+            <div class="login-links">
+                <a href="#">아이디 찾기</a>
+                <div class="links-divider"></div>
+                <a href="#">비밀번호 찾기</a>
             </div>
-        </form>
 
-        <div class="login-links">
-            <a href="#">아이디 찾기</a>
-            <span>|</span>
-            <a href="#">비밀번호 찾기</a>
-        </div>
+            <div class="signup-prompt-wrap">
+                <span>작심삼인이 처음이에요</span>
+                <a href="{% url 'signup' %}" class="btn-signup-link">가입하기</a>
+            </div>
 
-        <div class="signup-link">
-            작심삼인이 처음이에요 <a href="{% url 'signup' %}">가입하기</a>
-        </div>
-    </div>
+            <div class="divider-text-wrap">
+                <span class="divider-text">또는</span>
+            </div>
+
+            <div class="social-login-links">
+                <a href="#" class="social-item kakao"><img src="{% static 'images/ic_kakao.svg' %}" alt="카카오"></a>
+                <a href="#" class="social-item google"><img src="{% static 'images/ic_google.svg' %}" alt="구글"></a>
+                <a href="#" class="social-item naver"><img src="{% static 'images/ic_naver.svg' %}" alt="네이버"></a>
+                <a href="#" class="social-item apple"><img src="{% static 'images/ic_apple.svg' %}" alt="애플"></a>
+            </div>
+            
+        </div></div>
 </body>
 </html>

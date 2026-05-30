@@ -3,59 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>작심삼인</title>
+    <title>작심삼인 - 목표 직접 입력</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/login_home.css' %}">
 </head>
 <body>
-    <div class="goal-custom-container">
-    <a href="{% url 'goal' %}" class="btn-back">&lt;</a>
+    <div class="goal-custom-container login-container">
 
-    <h1 class="goal-custom-title">
-        나에게 맞는 <span class="highlight">목표</span>를<br>
-        <span class="highlight">자유롭게 설정</span>할 수 있어요 🚩
-    </h1>
-    <p class="goal-custom-subtitle">
-        내가 이루고 싶은 목표를<br>
-        직접입력 해주세요!
-    </p>
+        <div class="signup-header">
+            <a href="{% url 'goal' %}" class="btn-back"></a>
+        </div>
 
-    <input
-        type="text"
-        id="custom-goal-input"
-        class="goal-custom-input"
-        placeholder="3일간 도전 할 목표를 입력해주세요."
-    >
-    <!-- 입력 후에만 보이는 버튼 -->
-    <button type="button" class="btn-confirm" id="confirm-btn" style="display:none;">
-      다음 단계 넘어가기
-    </button>
-</div>
+        <h1 class="login-home-title team-main-title">
+            <span class="highlight">가장 많이 도전하는</span><br>
+            목표 주제를 가져왔어요 <img src="{% static 'images/flag.svg' %}" alt="깃발" class="title-flag">
+        </h1>
+        <p class="team-subtitle">
+            어떤 목표를 세울지 고민된다면<br>
+            인기 주제를 확인해보세요.
+        </p>
 
-<form id="goal-custom-form" method="POST" action="{% url 'goal_custom' %}">
-    {% csrf_token %}
-    <input type="hidden" name="goal" id="custom-goal-value">
-</form>
+        <div class="login-home-content-wrap">
+            
+            <div class="input-group" style="margin-bottom: 24px;">
+                <input
+                    type="text"
+                    id="custom-goal-input"
+                    class="team-name-input"
+                    placeholder="3일간 도전 할 목표를 입력해주세요."
+                >
+            </div>
 
-<script>
-const input = document.getElementById('custom-goal-input');
-const btn = document.getElementById('confirm-btn');
+            <button type="button" class="btn-login btn-next" id="confirm-btn" style="display:none; border:none; cursor:pointer;">
+                다음 단계 넘어가기
+            </button>
+        </div></div>
 
-// 입력값 있을 때만 버튼 표시
-input.addEventListener('input', function() {
-    btn.style.display = this.value.trim() ? 'block' : 'none';
-});
+    <form id="goal-custom-form" method="POST" action="{% url 'goal_custom' %}">
+        {% csrf_token %}
+        <input type="hidden" name="goal" id="custom-goal-value">
+    </form>
 
-// 버튼 클릭 시 폼 전송
-btn.addEventListener('click', function() {
-    const goal = input.value;
-    if (goal.trim() === '') {
-        alert('목표를 입력해주세요.');
-        return;
-    }
-    document.getElementById('custom-goal-value').value = goal;
-    document.getElementById('goal-custom-form').submit();
-});
-</script>
+    <script>
+    const input = document.getElementById('custom-goal-input');
+    const btn = document.getElementById('confirm-btn');
+
+    // 입력값 있을 때만 버튼 표시
+    input.addEventListener('input', function() {
+        btn.style.display = this.value.trim() ? 'block' : 'none';
+    });
+
+    // 버튼 클릭 시 폼 전송
+    btn.addEventListener('click', function() {
+        const goal = input.value;
+        if (goal.trim() === '') {
+            alert('목표를 입력해주세요.');
+            return;
+        }
+        document.getElementById('custom-goal-value').value = goal;
+        document.getElementById('goal-custom-form').submit();
+    });
+    </script>
 </body>
-
+</html>
