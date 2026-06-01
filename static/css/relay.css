@@ -1,0 +1,232 @@
+/* ==========================================================
+   릴레이 인증 페이지
+   ========================================================== */
+
+.relay-container {
+    padding: 0 16px;
+    box-sizing: border-box;
+}
+
+/* 상단 헤더 */
+.relay-top-header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 44px;
+    margin-bottom: 16px;
+}
+.relay-page-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #332A26;
+    margin: 0;
+}
+.relay-top-icons {
+    position: absolute;
+    right: 0;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.relay-icon-btn {
+    font-size: 20px;
+    color: #332A26;
+    text-decoration: none;
+    line-height: 1;
+    cursor: pointer;
+    margin-right: 14px;
+}
+
+/* 팀 이름 */
+.relay-team-name {
+    font-size: 18px;
+    font-weight: 700;
+    color: #979797;
+    margin: 0 0 20px 20px;
+}
+.team-name-accent {
+    color: #00A960;
+}
+
+/* 슬롯 카드 리스트 */
+.relay-slot-list {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+.relay-slot-card {
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    box-sizing: border-box;
+    margin: 0px 20px;
+}
+
+/* 1) 주자 정보 카드 (사진 없음) */
+.info-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+}
+.slot-runner-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.profile-image img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.slot-text-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+.slot-order {
+    font-size: 11px;
+    color: #7B7B7B;
+    font-weight: 400;
+}
+.slot-nickname {
+    font-size: 16px;
+    font-weight: 600;
+    color: #332A26;
+    margin: 0;
+}
+.btn-slot-arrow {
+    font-size: 18px;
+    color: #332A26;
+    text-decoration: none;
+}
+.btn-slot-arrow.disabled {
+    color: #332A26;
+}
+
+/* 2) 인증 사진 카드 */
+.photo-card {
+    position: relative;
+    height: 110px;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+.photo-card-overlay {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 0 20px;
+    color: #FFFFFF;
+}
+.photo-card-date {
+    font-size: 24px;
+    font-weight: 800;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+}
+.photo-card-status {
+    font-size: 11px;
+    font-weight: 400;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+/* 3) 빈 슬롯 (주자 추가) */
+.empty-card {
+    height: 130px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    text-decoration: none;
+}
+.empty-plus {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: #E2E8F0;
+    color: #FFFFFF;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+.empty-text {
+    font-size: 12px;
+    color: #B6B6B6;
+    font-weight: 500;
+}
+
+/* 본인 슬롯 강조 */
+.my-slot {
+    outline: 2px solid #28DE80;
+}
+
+/* 팀 없음 / 대기 상태 */
+.relay-no-team,
+.relay-waiting {
+    text-align: center;
+    color: #7B7B7B;
+    font-size: 14px;
+    padding: 40px 0;
+}
+.btn-create-team {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 10px 24px;
+    background-color: #28DE80;
+    color: #FFFFFF;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* ==========================================================
+   카드 내부 구조 (주자 정보 항상 표시 + 인증 영역 조건부)
+   ========================================================== */
+
+/* 카드 상단: 주자 정보 (항상 표시) */
+.slot-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+}
+
+/* 카드 하단: 인증 사진 */
+.slot-card-photo {
+    position: relative;
+    height: 110px;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+/* 카드 하단: 사진 없을 때 (날짜/상태만) */
+.slot-card-noimg {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 20px;
+    background: #EAEAEA;
+    border-radius: 10px;
+}
+.photo-card-date-dark {
+    font-size: 22px;
+    font-weight: 800;
+    color: #332A26;
+}
+.photo-card-status-dark {
+    font-size: 11px;
+    font-weight: 400;
+    color: #7B7B7B;
+}

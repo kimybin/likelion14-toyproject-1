@@ -1,4 +1,4 @@
-<!-- 하단 네비게이션 바를 통일하기 위한 페이지입니다 -->
+<!-- 하단 네비게이션 바 통일  -->
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -8,12 +8,14 @@
     <title>작심삼인</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    {% block extra_css %} {% endblock %} <!-- 유빈-추가 -->
 </head>
-<body>
+<body class="{% block body_class %}{% endblock %}">
 
     {% block content %}
     {% endblock %}
 
+    {% block bottom_nav %}
     <nav class="bottom-nav">
         
         <a href="{% url 'home' %}" class="nav-item {% if request.path == '/home/' %}active{% endif %}">
@@ -52,6 +54,8 @@
             <span>마이페이지</span>
         </a>
     </nav>
+    {% endblock %}
+
     <script>
             document.addEventListener("DOMContentLoaded", function() {
                 const currentPath = window.location.pathname;

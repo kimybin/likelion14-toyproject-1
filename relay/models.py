@@ -27,18 +27,27 @@ class RelaySlot(models.Model):
         choices=STATUS_CHOICES,
         default='waiting'
     )
-    start_date = models.DateField()
-    end_date = models.DateField()
+    start_date = models.DateField(null=True, blank=True)
+    end_date = models.DateField(null=True, blank=True)
+    deadline = models.DateTimeField(null=True, blank=True)
     is_rescue = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.relay} - {self.order}번째 주자 {self.runner.nickname}"
 
 class Certification(models.Model):
+    CERT_TYPE_CHOICES = [
+        ('start', '시작 인증'),
+        ('end', '종료 인증'),
+    ]
     slot = models.ForeignKey(RelaySlot, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='certifications/')
     certified_at = models.DateTimeField(auto_now_add=True)
-    day_number = models.IntegerField()  
+    day_number = models.IntegerField()
+    cert_type = models.CharField(
+        max_length=10,
+        choices=CERT_TYPE_CHOICES,
+    )
 
     def __str__(self):
-        return f"{self.slot} - {self.day_number}일차 인증"
+        return f"{self.slot} - {self.day_number}일차 {self.get_cert_type_display()}"

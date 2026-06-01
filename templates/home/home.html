@@ -18,7 +18,13 @@
         <section class="user-profile-card">
             <div class="profile-meta">
                 <div class="profile-avatar">
-                    <img src="{% static 'images/ic_default_avatar.svg' %}" alt="프로필">
+                   <div class="profile-image">
+                        {% if user.profile_image %}
+                            <img src="{{ user.profile_image.url }}" alt="프로필 이미지">
+                        {% else %}
+                            <img src="{% static 'images/profile_img.png' %}" alt="기본 프로필">
+                        {% endif %}
+                    </div>
                 </div>
                 <div class="profile-info-wrap">
                     <span class="subtitle">
@@ -70,27 +76,28 @@
                 </div>
             </div>
             
-            <div class="timer-display">
+            <div class="timer-display"
+                {% if current_slot.deadline %}data-deadline="{{ current_slot.deadline|date:'c' }}"{% endif %}>
                 <div class="time-box-container">
-                    <div class="time-block">00</div>
+                    <div class="time-block" data-unit="days">00</div>
                     <span class="time-label">DAYS</span>
                 </div>
                 <span class="timer-divider"> </span>
                 <div class="time-box-container">
-                    <div class="time-block">02</div>
+                    <div class="time-block" data-unit="hours">00</div>
                     <span class="time-label">HOURS</span>
                 </div>
                 <span class="timer-divider">:</span>
                 <div class="time-box-container">
-                    <div class="time-block">18</div>
+                    <div class="time-block" data-unit="minutes">00</div>
                     <span class="time-label">MINUTES</span>
                 </div>
                 <span class="timer-divider">:</span>
                 <div class="time-box-container">
-                    <div class="time-block">43</div>
+                    <div class="time-block" data-unit="seconds">00</div>
                     <span class="time-label">SECONDS</span>
                 </div>
-            </div>
+        </div>
         </section>
 
         <section class="relay-status-section">
@@ -111,10 +118,36 @@
             </p>
 
             <div class="relay-track-container">
-                <img src="{% static 'images/img_track.svg' %}" alt="릴레이 트랙" class="track-img">
+                <img src="{% static 'images/group_track.svg' %}" alt="릴레이 트랙" class="track-img">
             </div>
         </section>
 
     </div>
 </div>
+
+<script>
+    const display = document.querySelector('.timer-display');
+const deadline = display?.dataset.deadline ? new Date(display.dataset.deadline) : null;
+
+const pad = (n) => String(n).padStart(2, '0');
+
+function tick() {
+    if (!deadline) return;
+    let diff = Math.max(0, Math.floor((deadline - new Date()) / 1000));
+    const days  = Math.floor(diff / 86400); diff %= 86400;
+    const hours = Math.floor(diff / 3600);  diff %= 3600;
+    const mins  = Math.floor(diff / 60);
+    const secs  = diff % 60;
+
+    display.querySelector('[data-unit=days]').textContent    = pad(days);
+    display.querySelector('[data-unit=hours]').textContent   = pad(hours);
+    display.querySelector('[data-unit=minutes]').textContent = pad(mins);
+    display.querySelector('[data-unit=seconds]').textContent = pad(secs);
+}
+
+if (deadline) {
+    tick();
+    setInterval(tick, 1000);
+}
+</script>
 {% endblock %}

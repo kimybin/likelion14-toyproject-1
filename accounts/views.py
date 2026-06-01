@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
 from home.models import User, Team, TeamMember
 from relay.models import Relay, RelaySlot
-
+import re
 
 # 맨 처음 화면
 def login_home_view(request):
@@ -40,29 +40,60 @@ def signup_view(request):
         nickname = request.POST['nickname']
         email = request.POST['email']
 
-        # 비밀번호 확인
-        if password != password_confirm:
-            return render(request, 'accounts/signup.html', {'error' : '비밀번호가 일치하지 않습니다.'})
+        # 에러 발생 시 기존 입력값을 유지하기 위해 context 생성
+        context = {
+            'username': username,
+            'nickname': nickname,
+            'email': email,
+        }
 
-        # 아이디 중복 체크 (username)
+        # 예외 처리
+
+        # 1. 아이디 규칙 체크 (영문 또는 영문+숫자 조합 4~16자)
+        if not re.match(r'^[a-zA-Z0-9]{4,16}$', username) or not re.search(r'[a-zA-Z]', username):
+            context['error'] = '아이디는 영문 또는 영문+숫자 조합 4~16자여야 합니다.'
+            return render(request, 'accounts/signup.html', context)
+
+        # 2. 아이디 중복 체크
         if User.objects.filter(username=username).exists():
-            return render(request, 'accounts/signup.html', {'error' : '이미 사용 중인 아이디입니다.'})
+            context['error'] = '이미 사용 중인 아이디입니다.'
+            return render(request, 'accounts/signup.html', context)
 
-        user = User.objects.create_user(
-            username=username,
-            password=password,
-            nickname=nickname,
-            email=email,
-        )
+        # 3. 비밀번호 규칙 체크 (영문, 숫자 포함 10자 이상)
+        if len(password) < 10 or not re.search(r'[a-zA-Z]', password) or not re.search(r'\d', password):
+            context['error'] = '비밀번호는 영문, 숫자를 포함하여 10자 이상이어야 합니다.'
+            return render(request, 'accounts/signup.html', context)
 
-        login(request, user)
-        return redirect('team_name')
+        # 4. 비밀번호 일치 확인
+        if password != password_confirm:
+            context['error'] = '비밀번호가 일치하지 않습니다.'
+            return render(request, 'accounts/signup.html', context)
+
+        # 5. 닉네임 길이 체크 (공백 제외 2자 이상)
+        if len(nickname) < 2:
+            context['error'] = '닉네임은 2자 이상 입력해주세요.'
+            return render(request, 'accounts/signup.html', context)
+
+        # 통과 시 유저 생성 및 로그인
+        try:
+            user = User.objects.create_user(
+                username=username,
+                password=password,
+                nickname=nickname,
+                email=email,
+            )
+            login(request, user)
+            return redirect('team_name')
+
+        except Exception as e:
+            # 예외 처리
+            context['error'] = '회원가입 처리 중 문제가 발생했습니다. 다시 시도해주세요.'
+            return render(request, 'accounts/signup.html', context)
 
     return render(request, 'accounts/signup.html')
 
 # 인기 목표 선택
 def goal_view(request):
-    # 아이콘 이미지이름, 경로에 따라 수정될 수 있음
     popular_goals = [
         {'title': '오전 7시 전에 일어나기', 'icon': 'images/icon-bed.svg'},
         {'title': '하루 30분 걷기', 'icon': 'images/icon-walk.svg'},
@@ -78,9 +109,6 @@ def goal_view(request):
     if request.method == 'POST':
         selected_goal = request.POST['goal']
 
-        # request.session['goal'] = selected_goal # 나중에 팀 생성 화면이 만들어지면 그때 Relay 모델에 제대로 저장되도록 수정
-        # # 지금은 팀 생성 화면이 없으니까 세션에 임시 보관
-
         # 현재 유저의 팀 가져오기
         team_member = request.user.teammember_set.first()
         team = team_member.team if team_member else None
@@ -91,7 +119,7 @@ def goal_view(request):
 
             # Relay 생성
             if not existing_relay:
-                relay = Relay.objects.create(  # ← relay 변수에 저장
+                relay = Relay.objects.create(
                     team=team,
                     goal=selected_goal,
                     days_per_runner=3,
@@ -101,18 +129,6 @@ def goal_view(request):
                 )
             else:
                 relay = existing_relay
-
-            # # 3명 다 모였고 RelaySlot이 아직 없으면 생성
-            # member_count = TeamMember.objects.filter(team=team).count()
-            # slot_count = RelaySlot.objects.filter(relay=relay).count()
-            #
-            # print(f"member_count: {member_count}")  # 추가
-            # print(f"slot_count: {slot_count}")  # 추가
-            # print(f"relay: {relay}")  # 추가
-            #
-            # if member_count == 3 and slot_count == 0:
-            #     print("슬롯 생성 시작!")
-            #     _create_relay_slots(team, relay)
 
         return redirect('home')
 
@@ -124,8 +140,6 @@ def goal_custom_view(request):
     if request.method == 'POST':
         custom_goal = request.POST['goal']
 
-        # request.session['goal'] = custom_goal
-
         # 현재 유저의 팀 가져오기
         team_member = request.user.teammember_set.first()
         team = team_member.team if team_member else None
@@ -135,7 +149,7 @@ def goal_custom_view(request):
             existing_relay = Relay.objects.filter(team=team, is_active=True).first()
 
             if not existing_relay:
-                relay = Relay.objects.create(  # ← relay = 추가
+                relay = Relay.objects.create(
                     team=team,
                     goal=custom_goal,
                     days_per_runner=3,
@@ -146,15 +160,7 @@ def goal_custom_view(request):
             else:
                 relay = existing_relay
 
-            # # 3명 다 모였고 RelaySlot이 아직 없으면 생성
-            # member_count = TeamMember.objects.filter(team=team).count()
-            # slot_count = RelaySlot.objects.filter(relay=relay).count()
-            #
-            # if member_count == 3 and slot_count == 0:
-            #     _create_relay_slots(team, relay)
-
         return redirect('home')
-
 
     return render(request, 'accounts/goal_custom.html')
 
@@ -228,20 +234,28 @@ def _create_relay_slots(team, relay):
     from django.utils import timezone
     members = TeamMember.objects.filter(team=team).order_by('id') # id 순서 = 들어온 순서
 
-    print(f"members: {members}")  # 추가
-    print(f"members count: {members.count()}")  # 추가
-
     for index, member in enumerate(members):
-        print(f"슬롯 생성: {member.user.nickname} order={index + 1}")  # 추가
         order = index + 1
-        start_date = relay.started_at.date() + timezone.timedelta(days=(order-1) * relay.days_per_runner)
-        end_date = start_date + timezone.timedelta(days=relay.days_per_runner - 1)
+
+        if order == 1:
+            # 첫 주자만 릴레이 시작 시점 기준으로 세팅
+            start_date = relay.started_at.date()
+            end_date = start_date + timezone.timedelta(days=relay.days_per_runner - 1)
+            deadline = relay.started_at + timezone.timedelta(days=relay.days_per_runner)
+            status = 'running'
+        else:
+            # 나머지는 바톤 받을 때 채워짐
+            start_date = None
+            end_date = None
+            deadline = None
+            status = 'waiting'
 
         RelaySlot.objects.create(
             relay=relay,
             runner=member.user,
             order=order,
-            status='running' if order == 1 else 'waiting', # 1번째만 running
+            status=status,
             start_date=start_date,
             end_date=end_date,
+            deadline=deadline,
         )
