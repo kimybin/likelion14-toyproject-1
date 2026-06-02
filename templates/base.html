@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>작심삼인</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
 </head>
 <body>
 
@@ -54,14 +54,11 @@
     </nav>
     <script>
             document.addEventListener("DOMContentLoaded", function() {
-                // 1. 현재 브라우저 주소창의 글자를 읽어옵니다 (예: /home/, /mypage)
                 const currentPath = window.location.pathname;
                 
-                // 2. 하단바의 모든 메뉴들을 가져와서 검사합니다
                 document.querySelectorAll('.bottom-nav .nav-item').forEach(item => {
                     const href = item.getAttribute('href');
                     
-                    // 3. 메뉴의 링크 주소가 현재 주소창에 포함되어 있다면? 불을 켭니다!
                     if (currentPath.includes(href) || (href === '/home/' && currentPath === '/')) {
                         item.classList.add('active');
                     } else {

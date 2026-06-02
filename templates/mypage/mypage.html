@@ -2,68 +2,110 @@
 {% load static %}
 
 {% block content %}
+<link rel="stylesheet" href="{% static 'css/mypage.css' %}">
+<div class="mypage-container">
 
-<!-- 프로필 카드 -->
-<div class="mypage-profile-card">
-    <div class="mypage-profile-top">
-        <div class="mypage-profile-image">
-            {% if user.profile_image %}
-                <img src="{{ user.profile_image.url }}" alt="프로필 이미지">
-            {% else %}
-                <img src="{% static 'images/profile_img.png' %}" alt="기본 프로필">
-            {% endif %}
+    <h1 class="mypage-main-title">마이 페이지</h1>
+
+    <div class="mypage-profile-card">
+        <div class="mypage-profile-top">
+            <div class="mypage-profile-image">
+                {% if user.profile_image %}
+                    <img src="{{ user.profile_image.url }}" alt="프로필 이미지">
+                {% else %}
+                    <img src="{% static 'images/profile_img.png' %}" alt="기본 프로필">
+                {% endif %}
+            </div>
+            <div class="mypage-profile-info">
+                <span class="runner-order">{{ current_user_slot.order }}번째 주자</span>
+                <h2 class="nickname">{{ user.nickname }} 님</h2>
+            </div>
+            <a href="{% url 'profile_edit' %}" class="btn-profile-edit">프로필 편집 &gt;</a>
         </div>
-        <div class="mypage-profile-info">
-            <span class="runner-order">{{ current_user_slot.order }}번째 주자</span>
-            <h2 class="nickname">{{ user.nickname }} 님</h2>
+
+        <div class="mypage-profile-detail-box">
+            <div class="mypage-detail-item">
+                <span class="detail-label">소속 팀</span>
+                <a href="#" class="detail-value">{{ team.name }} &gt;</a>
+            </div>
+            <div class="mypage-detail-item">
+                <span class="detail-label">보유 메달</span>
+                <a href="#" class="detail-value">{{ user.medal_count }}개 &gt;</a>
+            </div>
         </div>
-        <a href="{% url 'profile_edit' %}" class="btn-profile-edit">프로필 편집 &gt;</a>
     </div>
 
-    <div class="mypage-profile-detail">
-        <div class="mypage-detail-item">
-            <span class="detail-label">소속 팀</span>
-            <a href="#" class="detail-value">{{ team.name }} &gt;</a>
-        </div>
-        <div class="mypage-detail-item">
-            <span class="detail-label">보유 메달</span>
-            <a href="#" class="detail-value">{{ user.medal_count }}개 &gt;</a>
+    <div class="mypage-activity">
+        <h3 class="activity-title">나의 활동</h3>
+        <div class="activity-list">
+            <a href="#" class="activity-item">
+                <span class="activity-left">
+                    <img src="{% static 'images/icon_challenge.svg' %}" class="menu-svg-icon" alt="완주한 도전">
+                    완주한 도전
+                </span>
+                <span class="activity-arrow">&gt;</span>
+            </a>
+            <a href="{% url 'relay' %}" class="activity-item">
+                <span class="activity-left">
+                    <img src="{% static 'images/icon_relay.svg' %}" class="menu-svg-icon" alt="릴레이 인증">
+                    릴레이 인증
+                </span>
+                <span class="activity-arrow">&gt;</span>
+            </a>
+            <a href="#" class="activity-item">
+                <span class="activity-left">
+                    <img src="{% static 'images/icon_setting.svg' %}" class="menu-svg-icon" alt="설정">
+                    설정
+                </span>
+                <span class="activity-arrow">&gt;</span>
+            </a>
         </div>
     </div>
+
+    <div class="mypage-help">
+        <hr class="section-divider">
+        <p class="help-title">도움말</p>
+        
+        <div class="help-list">
+            <a href="#" class="help-item">
+                <span class="help-left">
+                    <img src="{% static 'images/icon_cs.svg' %}" class="menu-svg-icon" alt="고객센터">
+                    고객센터
+                </span>
+            </a>
+            <a href="#" class="help-item">
+                <span class="help-left">
+                    <img src="{% static 'images/icon_notice.svg' %}" class="menu-svg-icon" alt="공지사항">
+                    공지사항
+                </span>
+            </a>
+            <a href="#" class="help-item">
+                <span class="help-left">
+                    <img src="{% static 'images/icon_privacy.svg' %}" class="menu-svg-icon" alt="개인정보 처리방침">
+                    개인정보 처리방침
+                </span>
+            </a>
+            <a href="#" class="help-item">
+                <span class="help-left">
+                    <img src="{% static 'images/icon_terms.svg' %}" class="menu-svg-icon" alt="서비스 이용 약관">
+                    서비스 이용 약관
+                </span>
+            </a>
+            <a href="#" class="help-item">
+                <span class="help-left">
+                    <img src="{% static 'images/icon_youth.svg' %}" class="menu-svg-icon" alt="청소년 보호 정책">
+                    청소년 보호 정책
+                </span>
+            </a>
+            <a href="#" class="help-item">
+                <span class="help-left">
+                    <img src="{% static 'images/icon_version.svg' %}" class="menu-svg-icon" alt="버전 정보">
+                    버전 정보
+                    <span class="version-text">v0.0.1</span>
+                </span>
+            </a>
+        </div>
+    </div>
+
 </div>
-
-<!-- 나의 활동 -->
-<!-- 따로 연결되는 페이지가 없기도 하고 주 기능은 아닌 것 같아서 링크만 걸어두었어요. -->
-<div class="mypage-activity">
-    <h3 class="activity-title">나의 활동</h3>
-    <div class="activity-list">
-        <a href="#" class="activity-item">
-            <span class="activity-name">완주한 도전</span>
-            <span class="activity-arrow">&gt;</span>
-        </a>
-        <a href="{% url 'relay' %}" class="activity-item">
-            <span class="activity-name">릴레이 인증</span>
-            <span class="activity-arrow">&gt;</span>
-        </a>
-        <a href="#" class="activity-item">
-            <span class="activity-name">설정</span>
-            <span class="activity-arrow">&gt;</span>
-        </a>
-    </div>
-</div>
-
-<!-- 도움말 -->
-<!-- 따로 연결되는 페이지가 없기도 하고 주 기능은 아닌 것 같아서 링크만 걸어두었어요. -->
-<div class="mypage-help">
-    <p class="help-title">도움말</p>
-    <div class="help-list">
-        <a href="#" class="help-item">고객센터</a>
-        <a href="#" class="help-item">공지사항</a>
-        <a href="#" class="help-item">개인정보 처리방침</a>
-        <a href="#" class="help-item">서비스 이용 약관</a>
-        <a href="#" class="help-item">청소년 보호 정책</a>
-        <a href="#" class="help-item">버전 정보</a>
-    </div>
-</div>
-
 {% endblock %}

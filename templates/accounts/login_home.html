@@ -3,27 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>작심삼인</title>
+    <title>작심삼인 - 로그인</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/login_home.css' %}">
 </head>
 <body>
-<div class="login-home-container">
-    <h1 class="login-home-title">
-        혼자면 <span class="highlight">작심삼일,</span><br>
-        함께라면 <span class="highlight">끝까지</span> 🚩
-    </h1>
 
-    <a href="{% url 'login' %}" class="btn-login">로그인</a>
+    <div class="login-home-container">
+        
+        <img src="{% static 'images/onboarding_bg.svg' %}" alt="배경" class="login-bg-gradient">
 
-    <div class="login-links">
-        <a href="#">아이디 찾기</a>
-        <span>|</span>
-        <a href="#">비밀번호 찾기</a>
-    </div>
+        <img src="{% static 'images/ic_menu.svg' %}" alt="메뉴" class="header-menu-icon" onerror="this.style.display='none'">
 
-    <!-- 소셜 로그인 연결은 보류 -->
-</div>
+        <h1 class="login-home-title">
+            혼자면 <span class="highlight">작심삼일,</span><br>
+            <span class="highlight">함께라면 </span>끝까지
+            <img src="{% static 'images/flag.svg' %}" alt="깃발" class="title-flag">
+        </h1>
+
+        <div class="login-home-content-wrap">
+            
+            <img src="{% static 'images/ic_app_logo.svg' %}" alt="로고" class="login-home-logo">
+
+            <a href="{% url 'login' %}" class="btn-login">로그인</a>
+
+            <div class="login-links">
+                <a href="#">아이디 찾기</a>
+                <div class="links-divider"></div>
+                <a href="#">비밀번호 찾기</a>
+            </div>
+
+            <div class="divider-text-wrap">
+                <span class="divider-text">또는</span>
+            </div>
+
+            <div class="social-login-links">
+                <a href="#" class="social-item kakao">
+                    <img src="{% static 'images/ic_kakao.svg' %}" alt="카카오">
+                </a>
+                <a href="#" class="social-item google">
+                    <img src="{% static 'images/ic_google.svg' %}" alt="구글">
+                </a>
+                <a href="#" class="social-item naver">
+                    <img src="{% static 'images/ic_naver.svg' %}" alt="네이버">
+                </a>
+                <a href="#" class="social-item apple">
+                    <img src="{% static 'images/ic_apple.svg' %}" alt="애플">
+                </a>
+            </div>
+            <!--소셜 로그인 보류-->
+        </div></div>
 
 </body>
 </html>

@@ -3,35 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>팀 이름 정하기</title>
+    <title>작심삼인 - 팀 이름 정하기</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/login_home.css' %}">
 </head>
 
 <body>
-    <div class="team-container">
-      <a href="{% url 'login_home' %}" class="btn-back">&lt;</a>
-      <h1 class="team-title">
-        함께할 <span class="highlight">팀의 이름</span>을 정하고<br>
-        첫 발을 내딛어보세요.
-      </h1>
-      <p class="team-subtitle">
-        친구 초대는 팀 생성 이후에 진행할 수 있어요.
-      </p>
-    </div>
+    <div class="team-container login-container">
+        <div class="signup-header">
+            <a href="{% url 'login_home' %}" class="btn-back"></a>
+            <h1 class="signup-title">팀 이름 정하기</h1>
+        </div>
 
-    <!-- 팀 이름 입력 -->
-    <input type="text" id="team-name-input" class="team-name-input" placeholder="팀 이름을 입력해주세요.">
+        <h1 class="login-home-title team-main-title">
+            함께할 <span class="highlight">팀의 이름</span>을 정하고<br>
+            첫 발을 내딛어보세요.
+        </h1>
+        <p class="team-subtitle">
+            친구 초대는 팀 생성 이후에 진행할 수 있어요.
+        </p>
 
-    <!-- 입력 후에만 보이는 버튼 -->
-    <button type="button" class="btn-next" id="btn-next" style="display:none;">
-      다음 단계 넘어가기
-    </button>
+        <div class="login-home-content-wrap">
+            
+            <div class="input-group" style="margin-bottom: 24px;">
+                <input type="text" id="team-name-input" class="team-name-input" placeholder="팀 이름을 입력해주세요.">
+            </div>
 
-    <p class="team-click">
-      이미 팀이 생성되었다면
-      <a href="{% url 'team_join' %}" class="highlight">여기를 눌러주세요.</a>
-    </p>
+            <button type="button" class="btn-login btn-next" id="btn-next" style="display:none; border:none; cursor:pointer;">
+                다음 단계 넘어가기
+            </button>
+
+            <p class="team-click">
+                이미 팀이 생성되었다면 
+                <a href="{% url 'team_join' %}" class="btn-signup-link">여기를 눌러주세요.</a>
+            </p>
+            
+        </div></div>
 
     <form id="team-form" method="POST" action="{% url 'team_name' %}">
         {% csrf_token %}
@@ -39,18 +47,18 @@
     </form>
 
     <script>
-      const input = document.getElementById('team-name-input');
-      const btn = document.getElementById('btn-next');
+        const input = document.getElementById('team-name-input');
+        const btn = document.getElementById('btn-next');
 
-      // 입력값 있을 때만 버튼 표시
-      input.addEventListener('input', function () {
-        btn.style.display = this.value.trim() ? 'block' : 'none';
-      })
+        // 입력값 있을 때만 버튼 표시
+        input.addEventListener('input', function () {
+            btn.style.display = this.value.trim() ? 'block' : 'none';
+        });
 
-      btn.addEventListener('click', function() {
-        document.getElementById('selected-team').value = input.value;
-        document.getElementById('team-form').submit();
-      });
-
+        btn.addEventListener('click', function() {
+            document.getElementById('selected-team').value = input.value;
+            document.getElementById('team-form').submit();
+        });
     </script>
 </body>
+</html>

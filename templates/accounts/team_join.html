@@ -3,38 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>팀 참여하기</title>
+    <title>작심삼인 - 팀 참여하기</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/login_home.css' %}">
 </head>
 
 <body>
     <div class="team-join-container">
-        <a href="{% url 'login_home' %}" class="btn-back">&lt;</a>
-        <h1 class="team-join-title">
+
+        <div class="signup-header">
+            <a href="{% url 'login_home' %}" class="btn-back"></a>
+            <h1 class="signup-title">팀 이름 정하기</h1>
+        </div>
+
+        <h1 class="login-home-title team-main-title">
             팀 <span class="highlight">초대 코드를 입력</span>하고<br>
             함께 도전을 시작하세요.
         </h1>
-        <p class="team-join-subtitle">
+        <p class="team-subtitle">
             초대 코드를 통해 기존 팀에 참여할 수 있어요.<br>
             코드가 없다면 팀 생성 후 친구를 초대해보세요.
         </p>
 
-        <input
-            type="text"
-            id="invite-code-input"
-            class="invite-code-input"
-            placeholder="초대코드를 입력해주세요."
-        >
+        <div class="login-home-content-wrap">
+            
+            <div class="input-group" style="margin-bottom: 24px;">
+                <input
+                    type="text"
+                    id="invite-code-input"
+                    class="team-name-input"
+                    placeholder="초대코드를 입력해주세요."
+                >
+            </div>
 
-        {% if error %}
-        <p class="error-message">{{ error }}</p>
-        {% endif %}
+            {% if error %}
+            <p class="error-message" style="width: 100%; text-align: center;">{{ error }}</p>
+            {% endif %}
 
-        <button type="button" class="btn-next" id="next-btn" style="display:none;">
-            다음 단계 넘어가기
-        </button>
-    </div>
+            <button type="button" class="btn-login btn-next" id="next-btn" style="display:none; border:none; cursor:pointer;">
+                다음 단계 넘어가기
+            </button>
+            
+        </div></div>
 
     <form id="join-form" method="POST" action="{% url 'team_join' %}">
         {% csrf_token %}

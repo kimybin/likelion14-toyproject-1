@@ -21,19 +21,35 @@
                     <img src="{% static 'images/ic_default_avatar.svg' %}" alt="프로필">
                 </div>
                 <div class="profile-info-wrap">
-                    <span class="subtitle">첫번째 주자</span>
+                    <span class="subtitle">
+                        {% if current_user_slot %}
+                            {{ current_user_slot.order }}번째 주자
+                        {% else %}
+                            대기 주자
+                        {% endif %}
+                    </span>
+                    
                     <div class="nickname-row">
                         <h2 class="user-nickname">{{ user.nickname|default:user.username }} 님</h2>
                         <div class="profile-badges">
                             <span class="badge status-badge">
                                 <div class="badge-wrap">
                                     <img src="{% static 'images/dot.svg' %}">
-                                </div> 바톤 터치 완료
+                                </div> 
+                                {% if current_user_slot.status == 'completed' %}
+                                    바톤 터치 완료
+                                {% elif current_user_slot.status == 'running' %}
+                                    현재 달리는 중!
+                                {% else %}
+                                    바톤 대기 중
+                                                        {% endif %}
                             </span>
+                            
                             <span class="badge team-badge">
                                 <div class="badge-wrap">
                                     <img src="{% static 'images/dot.svg' %}">
-                                </div> 끝까지 가자 팀 소속
+                                </div> 
+                                {% if team %}{{ team.name }}{% else %}소속 팀 없음{% endif %} 소속
                             </span>
                         </div>
                     </div>
@@ -42,7 +58,7 @@
             
             <div class="goal-banner">
                 <span class="goal-title">현재 도전 중인 목표!</span>
-                <p class="goal-text">하루에 책 30분씩 읽기</p>
+                <p class="goal-text">{% if team %}{{ team.goal }}{% else %}목표를 설정해주세요.{% endif %}</p>
             </div>
         </section>
 
@@ -85,7 +101,14 @@
                 </div>
             </div>
             <p class="relay-desc">편하게 우리팀이 어디까지 달렸는지 확인해요</p>
-            <p class="relay-desc-light">두 번째 주자 김민솔님 달리는 중 ⦁⦁⦁</p>
+            
+            <p class="relay-desc-light">
+                {% if current_slot %}
+                    {{ current_slot.order }}번째 주자 {{ current_slot.runner.nickname|default:current_slot.runner.username }}님 달리는 중 ⦁⦁⦁
+                {% else %}
+                    현재 달리고 있는 주자가 없습니다.
+                {% endif %}
+            </p>
 
             <div class="relay-track-container">
                 <img src="{% static 'images/img_track.svg' %}" alt="릴레이 트랙" class="track-img">
