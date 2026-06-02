@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body_class %}cert-page{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/certification.css' %}">
+{% endblock %}
+
+{% block bottom_nav %}{% endblock %}
+
+{% block content %}
+
+<div class="cert-container">
+
+    <!-- 상단 헤더 -->
+    <div class="cert-header">
+        <a href="{% url 'relay' %}" class="cert-close">&times;</a>
+        <div class="cert-header-center">
+            <h1 class="cert-title">목표: {{ slot.relay.goal }}</h1>
+            <span class="cert-badge">진행중</span>
+        </div>
+    </div>
+
+    <!-- 진행 시간 -->
+    <p class="cert-progress">진행시간: <span>{{ day_number }}일차</span></p>
+
+    <!-- 인증 썸네일 2개 (시작 / 종료) -->
+    <div class="cert-thumbs">
+        <div class="cert-thumb {% if today_start %}done{% endif %}">
+            {% if today_start %}
+                <img src="{{ today_start.image.url }}" alt="시작 인증">
+                <span class="thumb-check">&#10003;</span>
+            {% endif %}
+        </div>
+        <div class="cert-thumb {% if today_end %}done{% endif %}">
+            {% if today_end %}
+                <img src="{{ today_end.image.url }}" alt="종료 인증">
+                <span class="thumb-check">&#10003;</span>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- 큰 프리뷰 영역 -->
+    <div class="cert-preview">
+        {% if today_end %}
+            <img src="{{ today_end.image.url }}" alt="종료 인증" class="preview-img">
+        {% elif today_start %}
+            <img src="{{ today_start.image.url }}" alt="시작 인증" class="preview-img">
+        {% endif %}
+
+        <!-- 가운데 조준선 -->
+        <div class="preview-crosshair-h"></div>
+        <span class="preview-crosshair-plus">+</span>
+
+        <!-- 좌하단 칩 -->
+        <div class="preview-chips">
+            <span class="preview-chip">{{ slot.relay.goal }}</span>
+        </div>
+    </div>
+
+    <!-- 촬영 버튼  -->
+    <div class="cert-shutter-wrap">
+        {% if not today_start %}
+        <!-- 시작 인증 -->
+        <form method="POST" action="{% url 'certification' slot.id %}" enctype="multipart/form-data" id="form-start">
+            {% csrf_token %}
+            <input type="hidden" name="cert_type" value="start">
+            <label for="start-image" class="cert-shutter"></label>
+            <input type="file" id="start-image" name="image" accept="image/*" capture="environment"
+                   style="display:none;" onchange="this.form.submit()">
+        </form>
+
+        {% elif not today_end %}
+        <!-- 종료 인증 -->
+        <form method="POST" action="{% url 'certification' slot.id %}" enctype="multipart/form-data" id="form-end">
+            {% csrf_token %}
+            <input type="hidden" name="cert_type" value="end">
+            <label for="end-image" class="cert-shutter"></label>
+            <input type="file" id="end-image" name="image" accept="image/*" capture="environment"
+                   style="display:none;" onchange="this.form.submit()">
+        </form>
+
+        {% else %}
+        <!-- 둘 다 완료 -->
+        <div class="cert-shutter done"></div>
+        {% endif %}
+    </div>
+
+    <!-- 하단 안내 -->
+    <div class="cert-notice">
+        {% if not today_start %}
+            <p class="notice-main">책 표지 또는 읽는 시작 장면이<br>보이게 촬영하세요</p>
+            <div class="notice-sub">
+                <span class="notice-tag start">시작</span>
+                <span class="notice-text">시작 인증과 종료 인증 2장</span>
+            </div>
+        {% elif not today_end %}
+            <p class="notice-main">목표를 수행한 결과가<br>보이게 촬영하세요</p>
+            <div class="notice-sub">
+                <span class="notice-tag end">종료</span>
+                <span class="notice-text">시작 인증과 종료 인증 2장</span>
+            </div>
+        {% else %}
+            <p class="notice-main cert-complete">오늘 인증 완료!</p>
+        {% endif %}
+    </div>
+
+</div>
+
+{% endblock %}

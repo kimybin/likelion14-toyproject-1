@@ -1,0 +1,201 @@
+/* ==========================================================
+   인증 페이지
+   ========================================================== */
+body.cert-page {
+    background-color: #FFF;
+}
+body.cert-page > div:not(.bottom-nav) {
+    background-color: #111111;
+}
+
+.cert-container {
+    background-color: #111111;
+    min-height: 100vh;
+    padding: 16px 16px 100px 16px;
+    box-sizing: border-box;
+    color: #FFFFFF;
+}
+
+/* 상단 헤더 */
+.cert-header {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-bottom: 18px;
+}
+.cert-close {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 40px;
+    color: #D1D3D8;
+    text-decoration: none;
+    line-height: 1;
+}
+.cert-header-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+}
+.cert-title {
+    font-size: 16px;
+    font-weight: 500;
+    color: #FFFFFF;
+    margin-top: 30px;
+}
+.cert-badge {
+    background-color: #A5E5C4;
+    color: #332A26;
+    font-size: 11px;
+    padding: 3px 12px;
+    border-radius: 20px;
+}
+
+/* 진행 시간 */
+.cert-progress {
+    font-size: 14px;
+    color: #B4B2A9;
+    margin: 0 0 12px 20px;
+    font-weight: 400;
+}
+.cert-progress span {
+    color: #FFFFFF;
+    font-weight: 500;
+}
+
+/* 썸네일 2개 */
+.cert-thumbs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 16px;
+    margin-left: 20px;
+}
+.cert-thumb {
+    position: relative;
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    background-color: #5F5E5A;
+    overflow: hidden;
+}
+.cert-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.thumb-check {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #FFFFFF;
+    font-size: 20px;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
+
+/* 큰 프리뷰 영역 */
+.cert-preview {
+    position: relative;
+    width: calc(100% - 32px);
+    height: 400px;
+    border-radius: 14px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #6b5640, #3a2c1d);
+    margin: 16px;
+}
+.preview-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.preview-crosshair-h {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    border-top: 1px dashed rgba(255, 255, 255, 0.7);
+}
+.preview-crosshair-plus {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #FFFFFF;
+    font-size: 22px;
+}
+.preview-chips {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    display: flex;
+    gap: 6px;
+}
+.preview-chip {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #FFFFFF;
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 6px;
+}
+
+/* 촬영 버튼 */
+.cert-shutter-wrap {
+    display: flex;
+    justify-content: center;
+    margin: 16px 0;
+}
+.cert-shutter {
+    display: block;
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    background-color: #FFFFFF;
+    border: 4px solid #888780;
+    cursor: pointer;
+}
+.cert-shutter.done {
+    background-color: #28DE80;
+    border-color: #9FE1CB;
+    cursor: default;
+}
+
+/* 하단 안내 */
+.cert-notice {
+    padding: 0 4px;
+    margin-left: 20px;
+}
+.notice-main {
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 1.4;
+    margin: 0 0 10px 0;
+    color: #FFFFFF;
+}
+.notice-sub {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.notice-tag {
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 20px;
+}
+.notice-tag.start {
+    background-color: #A5E5C4;
+    color: #332A26;
+}
+.notice-tag.end {
+    background-color: #FAC775;
+    color: #854F0B;
+}
+.notice-text {
+    font-size: 12px;
+    color: #B4B2A9;
+}
+.cert-complete {
+    color: #28DE80;
+    margin-left: 20px;
+}

@@ -1,5 +1,105 @@
-
 {% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/relay.css' %}">
+{% endblock %}
+
 {% block content %}
-<h1>준비 중</h1>
+
+<div class="relay-container">
+
+    <!-- 상단 헤더 -->
+    <div class="relay-top-header">
+        <div class="relay-top-icons">
+            {% if member_count < 3 %}
+            <a href="{% url 'invite' %}" class="relay-icon-btn">+</a>
+            {% else %}
+            {% for data in slot_data %}
+                {% if data.is_mine %}
+                <a href="{% url 'certification' data.slot.id %}" class="relay-icon-btn">+</a>
+                {% endif %}
+            {% endfor %}
+            {% endif %}
+            <span class="relay-icon-btn"><img src="{% static 'images/ic_chat.svg' %}" alt="채팅"></span>
+        </div>
+        <h1 class="relay-page-title">릴레이 인증</h1>
+    </div>
+
+    {% if not team %}
+    <!-- 팀 없을 때 -->
+    <div class="relay-no-team">
+        <p>아직 팀이 없어요.</p>
+        <a href="{% url 'team_name' %}" class="btn-create-team">팀 만들기</a>
+    </div>
+
+    {% else %}
+    <p class="relay-team-name"><span class="team-name-accent">{{ team.name }} </span>팀</p>
+
+    <div class="relay-slot-list">
+        {% for data in slot_data %}
+        <div class="relay-slot-card {% if data.is_mine %}my-slot{% endif %}">
+
+            <!-- 주자 정보 (항상 표시) -->
+            <div class="slot-card-top">
+                <div class="slot-runner-info">
+                    <div class="profile-image">
+                        {% if data.slot.runner.profile_image %}
+                            <img src="{{ data.slot.runner.profile_image.url }}" alt="프로필 이미지">
+                        {% else %}
+                            <img src="{% static 'images/profile_img.png' %}" alt="기본 프로필">
+                        {% endif %}
+                    </div>
+                    <div class="slot-text-wrap">
+                        <span class="slot-order">{{ data.slot.order|stringformat:"d" }}번째 주자</span>
+                        <h3 class="slot-nickname">{{ data.slot.runner.nickname }} 님</h3>
+                    </div>
+                </div>
+                {% if data.is_mine %}
+                <a href="{% url 'certification' data.slot.id %}" class="btn-slot-arrow">&gt;</a>
+                {% else %}
+                <span class="btn-slot-arrow disabled">&gt;</span>
+                {% endif %}
+            </div>
+
+            <!-- 인증 영역 (사진 있으면 사진, 없으면 날짜/상태) -->
+            {% if data.latest_cert %}
+            <div class="slot-card-photo" style="background-image: url('{{ data.latest_cert.image.url }}');">
+                <div class="photo-card-overlay">
+                    <span class="photo-card-date">{{ today|date:"Y. m. d" }}</span>
+                    <span class="photo-card-status">{{ data.status_text }}</span>
+                </div>
+            </div>
+            {% else %}
+            <div class="slot-card-noimg">
+                <span class="photo-card-date-dark">{{ today|date:"Y. m. d" }}</span>
+                <span class="photo-card-status-dark">{{ data.status_text }}</span>
+            </div>
+            {% endif %}
+
+        </div>
+
+        {% empty %}
+        <!-- 슬롯 없을 때 -->
+        <div class="relay-waiting">
+            <p>아직 팀원이 모두 모이지 않았어요.</p>
+        </div>
+        {% endfor %}
+
+        <!-- 빈 슬롯 (주자 추가) : 팀원 3명 미만일 때만 표시 -->
+        {% if member_count < 3 %}
+        {% for i in "12"|make_list %}
+        <a href="{% url 'invite' %}" class="relay-slot-card empty-card">
+            <span class="empty-plus">+</span>
+            <span class="empty-text">주자 추가</span>
+        </a>
+        {% endfor %}
+        {% endif %}
+
+    </div>
+
+    {% endif %}
+
+</div>
+
 {% endblock %}

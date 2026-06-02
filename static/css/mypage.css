@@ -10,7 +10,6 @@
     flex-direction: column;
     position: relative;
     border: 1px solid #E2E8F0;
-    border-radius: 40px; 
     box-shadow: 0 10px 30px rgba(0,0,0,0.05);
     
     overflow-y: auto;

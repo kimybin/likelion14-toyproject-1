@@ -1,15 +1,16 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/profile_edit.css' %}">
-</head>
-<body>
-<!-- 공통 스타일과 일치하도록 최외곽 컨테이너 클래스 지정 -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/profile_edit.css' %}">
+{% endblock %}
+
+{% block bottom_nav %}{% endblock %}
+
+{% block content %}
+
 <div class="profile-edit-container">
-    
+
     <!-- 상단 헤더 영역 (공통 뒤로가기 버튼 연동) -->
     <div class="profile-edit-header">
         <a href="{% url 'mypage' %}" class="btn-back"></a>
@@ -67,6 +68,7 @@
         <span class="actions-divider">|</span>
         <a href="{% url 'logout' %}" class="btn-action-text">로그아웃하기</a>
     </div>
+
 </div>
-</body>
-</html>
+
+{% endblock %}

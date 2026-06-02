@@ -6,7 +6,7 @@ from home.models import TeamMember
 from relay.models import Relay, RelaySlot
 
 @login_required # 로그인한 유저만 접근 가능
-# 나중에 로그인 기능 만들고 다시 활성화
+
 def home(request):
     user = request.user # 현재 로그인한 유저 객체
 

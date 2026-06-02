@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/invite.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="invite-container">
+
+    <!-- 상단 헤더 -->
+    <div class="invite-header">
+        <a href="{% url 'relay' %}" class="invite-back">&lt;</a>
+        <h1 class="invite-page-title">주자 추가</h1>
+    </div>
+
+    <!-- 메인 타이틀 -->
+    <h2 class="invite-title">
+        <span class="highlight">친구를 초대</span>하고<br>
+        함께 <span class="highlight">목표를 완성</span>해보세요.
+    </h2>
+    <p class="invite-subtitle">
+        초대 코드를 공유하면 친구가 같은 팀에 참여할 수 있어요.<br>
+        함께할수록 더 꾸준히 목표를 이어갈 수 있습니다.
+    </p>
+
+    <!-- 팀 이름 -->
+    <p class="invite-team-name"><span class="highlight">{{ team.name }}</span> 팀</p>
+
+    <!-- 초대 코드 박스 -->
+    <div class="invite-code-box">
+        <p class="invite-code-label">나의 초대 코드</p>
+        <p class="invite-code" id="invite-code">{{ team.invite_code }}</p>
+    </div>
+
+    <!-- 버튼 2개 -->
+    <div class="invite-btn-row">
+        <button type="button" class="btn-invite" id="copy-btn">초대코드 복사하기</button>
+        <button type="button" class="btn-invite" id="link-btn">링크 보내기</button>
+    </div>
+
+    <!-- 안내 문구 -->
+    <ul class="invite-notice">
+        <li>이미 만들어진 팀에 참여하려면 설정 또는 팀 참여 페이지에서 초대 코드를 입력해야 해요.</li>
+        <li>초대 코드는 팀에 참여할 때만 사용할 수 있어요.</li>
+        <li>코드를 입력하면 자동으로 해당 팀에 연결됩니다.</li>
+        <li>새 팀을 만들고 싶다면 팀 생성 후 친구를 초대할 수 있어요.</li>
+        <li>초대 코드는 팀당 하나씩 발급돼요.</li>
+    </ul>
+
+</div>
+
+<script>
+document.getElementById('copy-btn').addEventListener('click', function() {
+    const code = document.getElementById('invite-code').innerText;
+    navigator.clipboard.writeText(code).then(function() {
+        alert('초대 코드가 복사되었습니다!');
+    });
+});
+
+document.getElementById('link-btn').addEventListener('click', function() {
+    const code = document.getElementById('invite-code').innerText;
+    const shareText = `우리 팀에 참여해줘! 초대 코드: ${code}`;
+    if (navigator.share) {
+        navigator.share({ title: '주자 추가', text: shareText });
+    } else {
+        navigator.clipboard.writeText(shareText).then(function() {
+            alert('초대 메시지가 복사되었습니다!');
+        });
+    }
+});
+</script>
+
+{% endblock %}
