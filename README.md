@@ -38,14 +38,14 @@
 ### 홈 페이지 
 <img width="3840" height="2160" alt="온보딩-3" src="https://github.com/user-attachments/assets/2e5c649b-3b4c-432e-b789-8efaac28535b" />
 
-### 랭킹 페이지
+### 랭킹 페이지 - 개발 미완료 
 <img width="3840" height="2160" alt="온보딩-6" src="https://github.com/user-attachments/assets/ad9adc38-99fb-4e7b-b17d-9608c5465244" />
 
 ### 인증 페이지
 <img width="3840" height="2160" alt="온보딩-3" src="https://github.com/user-attachments/assets/44183790-b9a0-4c18-8966-2718421abf40" />
 <img width="3840" height="2160" alt="온보딩-4" src="https://github.com/user-attachments/assets/10830b7c-1f93-437e-973e-2923f0c7fabf" />
 
-### 채팅 페이지
+### 채팅 페이지 - 개발 미완료
 <img width="3840" height="2160" alt="온보딩-5" src="https://github.com/user-attachments/assets/e55948d2-494e-4224-a2f6-de07ae71a63a" />
 <br>
 
