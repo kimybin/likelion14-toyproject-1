@@ -56,7 +56,7 @@ git clone https://github.com/kimybin/likelion14-toyproject-1.git
 cd likelion14-toyproject-1
 
 2. 가상환경 생성 및 실행
-$ python -m venv venv
+python -m venv venv
 source venv/bin/activate
 
 3. 필수 패키지 설치
