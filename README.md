@@ -1,12 +1,12 @@
 # 🚩 작심삼인
-<img width="3840" height="2160" alt="첫페이지" src="https://github.com/user-attachments/assets/10d21887-49ea-4fe6-bf24-f577ca3fb5b2" />
-
 > 중도 포기 없는 완주 경험을 제공하는 릴레이 습관 서비스
+<img width="3840" height="2160" alt="첫페이지" src="https://github.com/user-attachments/assets/10d21887-49ea-4fe6-bf24-f577ca3fb5b2" />
+<br>
 
 
 # ✅ 프로젝트 소개 
 - **작심삼인**은 3인이 하나의 목표를 릴레이 방식으로 이어가며 습관을 형성하는 팀 기반 습관 관리 애플리케이션입니다. 혼자 목표를 실천하며 동기부여가 떨어지고 중도 포기하는 문제를 해결하기 위해 기획되었습니다. 사용자는 부담 없는 3일간의 짧은 목표를 수행한 뒤 다음 주자에게 바톤을 전달하며 목표를 이어 나갑니다. 팀원들은 서로의 진행 상황을 공유하고 응원하며 책임감과 성취감을 얻을 수 있고 이를 통해 **지속적인 습관 형성**을 경험할 수 있습니다. 
-
+<br>
 
 # 👩🏻‍💻 팀원 구성
 | 역할 | 이름 |
@@ -14,17 +14,17 @@
 | PM/Design | 고은서 |
 | Front-end | 김민솔 | 
 | Back-end | 김유빈, 윤예원 | 
-
+<br>
 
 # 💻 기술 스택
 - PM/Design | Figma
 - Front-end | HTML, CSS, JavaScript
 - Back-end | Python, Django
-
+<br>
 
 # ⏱️ 개발 기간
 - 2026.05.13 ~ 2026.06.01
-
+<br>
 
 # 🔍 페이지 간단 소개
 
@@ -47,7 +47,7 @@
 
 ### 채팅 페이지
 <img width="3840" height="2160" alt="온보딩-5" src="https://github.com/user-attachments/assets/e55948d2-494e-4224-a2f6-de07ae71a63a" />
-
+<br>
 
 # ⚙️ 프로젝트 초기 세팅
 ```bash
@@ -68,6 +68,7 @@ python manage.py migrate
 5. 서버 실행
 python manage.py runserver
 ```
+<br>
 
 
 # 📁 파일 구조
